@@ -1,22 +1,22 @@
-name: Reusable Workflow
+name: 'My Deployment Steps'
+description: 'Reusable deployment steps'
 
-on:
-  # This is the key part that was missing - it makes the workflow reusable
-  workflow_call:
-    # inputs:
-    #   environment:
-    #     required: true
-    #     type: string
-    #     description: 'Environment to deploy to'
+inputs:
+  message:
+    description: 'Message to display'
+    required: false
+    default: 'Hello World'
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    # environment: ${{ inputs.environment }}
+runs:
+  using: "composite"
+  steps:
+    - name: Run shared step
+      shell: bash
+      run: |
+        echo "Running shared step"
+        echo "${{ inputs.message }}"
     
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Deploy to environment
-        run: |
-          echo "Hello World!"
+    - name: Another shared step
+      shell: bash
+      run: |
+        echo "This is another reusable step"

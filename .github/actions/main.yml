@@ -1,0 +1,22 @@
+name: 'My Deployment Steps'
+description: 'Reusable deployment steps'
+
+inputs:
+  message:
+    description: 'Message to display'
+    required: false
+    default: 'Hello World'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run shared step
+      shell: bash
+      run: |
+        echo "Running shared step"
+        echo "${{ inputs.message }}"
+    
+    - name: Another shared step
+      shell: bash
+      run: |
+        echo "This is another reusable step"
